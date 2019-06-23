@@ -5,10 +5,11 @@ from django.template.loader import get_template
 # Don't Repeat Yourself = DRY
 
 def home_page(request):
+    # You want to do the condition logic here
     my_title = "Hello there..."
-    context = {"title": my_title, "my_list": [1, 2, 3, 4, 5]}
-    # doc = "<h1>{title}</h1>".format(title=my_title)
-    # django_rendered_doc = "<h1>{{title}}</h1>".format(title=my_title)
+    context = {"title": my_title}
+    if request.user.is_authenticated:
+        context = {"title": my_title, "my_list": [1, 2, 3, 4, 5]}
     return render(request, "home.html", context)
 
 def about_page(request):
