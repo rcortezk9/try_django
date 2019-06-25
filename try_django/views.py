@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 # Don't Repeat Yourself = DRY
+from .forms import ContactForm
 
 def home_page(request):
     # You want to do the condition logic here
@@ -18,8 +19,15 @@ def about_page(request):
 
 
 def contact_page(request):
-    print(request.POST)
-    return render(request, "form.html", {"title": "Contact Us"})
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form = ContactForm() # Reinitialize the form
+    context = {
+        "title": "Contact Us",
+        "form": form
+    }
+    return render(request, "form.html", context)
 
 
 
