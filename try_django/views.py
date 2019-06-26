@@ -8,11 +8,8 @@ from blog.models import BlogPost
 
 def home_page(request):
     # You want to do the condition logic here
-    my_title = "Hello there..."
     qs = BlogPost.objects.all()[:5]
     context = {"title": 'Welcome to Try  Django', 'blog_lis': qs}
-    if request.user.is_authenticated:
-        context = {"title": my_title, "my_list": [1, 2, 3, 4, 5]}
     return render(request, "home.html", context)
 
 def about_page(request):
